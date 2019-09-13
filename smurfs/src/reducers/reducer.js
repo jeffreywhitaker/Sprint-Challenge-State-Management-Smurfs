@@ -1,4 +1,4 @@
-import { FETCHING_SMURFS_START, FETCHING_SMURFS_SUCCESS, FETCHING_SMURFS_FAILURE, POSTING_SMURF_START, POSTING_SMURF_SUCCESS, POSTING_SMURF_FAILURE } from '../actions/actions'
+import { FETCHING_SMURFS_START, FETCHING_SMURFS_SUCCESS, FETCHING_SMURFS_FAILURE, POSTING_SMURF_START, POSTING_SMURF_SUCCESS, POSTING_SMURF_FAILURE, DELETING_SMURF_FAILURE, DELETING_SMURF_START, DELETING_SMURF_SUCCESS } from '../actions/actions'
 
 const initialState = {
     smurfs: [],
@@ -43,6 +43,24 @@ export const reducer = (state = initialState, action) => {
                 ...state,
                 isFetching: false,
                 error: `Unable to post New Smurf: ${action.payload}`
+            }
+        case DELETING_SMURF_START:
+                return {
+                    ...state,
+                    isFetching: true,
+                    error: ''
+                }
+        case DELETING_SMURF_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
+                smurfs: action.payload
+            }
+        case DELETING_SMURF_FAILURE:
+            return {
+                ...state,
+                isFetching: false,
+                error: `Unable to delete Smurf: ${action.payload}`
             }
         default:
             return state
